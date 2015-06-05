@@ -27,11 +27,13 @@ def callback(ch, method, properties, body):
 	r.hset('build','timestamp',(message ['timestamp']))
 	r.hset('build','buildstatus',(message ['buildstatus']))
 	r.hset('build','buildresult',(message ['buildresult']))
-	print 
+
+	print 'Receiving:'
 	print 'user ' + r.hget('build','user')
 	print 'timestamp ' + r.hget('build','timestamp')
 	print 'build status ' +  r.hget('build','buildstatus')
 	print 'build result ' + r.hget('build','buildresult')
+	print
 
 
 
