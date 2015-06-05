@@ -2,8 +2,7 @@
 import pika
 import sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='54.86.18.251'))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
@@ -16,5 +15,4 @@ channel.basic_publish(exchange='',
                          delivery_mode = 2, # make message persistent
                       ))
 print " [x] Sent %r" % (message,)
-channel.close()
 connection.close()
