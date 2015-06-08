@@ -8,6 +8,7 @@ void setup()
     pinMode(10, OUTPUT);
     pinMode( 9, OUTPUT);
     pinMode( 8, OUTPUT);
+    pinMode( 7, OUTPUT);
 }
 
 void blinkReds(int blinkNum = 5)
@@ -27,9 +28,17 @@ void blinkReds(int blinkNum = 5)
     }      
 }
 
+void lightBlues(bool on = false)
+{
+    if(on)
+        digitalWrite( 7, HIGH);
+    else
+        digitalWrite( 7, LOW);    
+}
+
 void blinkGreens(int blinkNum = 5)
 {
-    int msDelay = 40;  
+    int msDelay = 100;  
     
     for(int i = 0; i <  blinkNum; i++)
     {
@@ -92,25 +101,52 @@ void loop2()
     toggleYellows();
     blinkGreens();
 }
+
+
+unsigned long oneMinuteInMs = 1*60*1000;
+unsigned long fiveMinutesInMs = 5*60*1000;
+unsigned long tenSecsInMs = 10*1000;
+unsigned long thirtySecsInMs = 30*1000;
+unsigned long msSinceComplete = 0;
+
 void loop() 
 {
-    
+    digitalWrite(7, HIGH);
     while(Serial.available() == 0)
-    {}
+    {
+        if(msSinceComplete != 0) 
+        {
+//            if(millis() - msSinceComplete <= oneMinuteInMs)
+            if(millis() - msSinceComplete <= thirtySecsInMs)
+                digitalWrite(7, HIGH);
+            else
+                digitalWrite(7, LOW);
+        }        
+        else
+            digitalWrite( 7, LOW);
+    }
+    
+    
     String buildStatus = Serial.readString();
     
     if(buildStatus == "starting")
     {
+        digitalWrite(7, LOW);
+        msSinceComplete = 0;
         blinkReds();
     }
     else if(buildStatus == "inprocess")
     {
+        digitalWrite(7, LOW);
+        msSinceComplete = 0;
         toggleYellows();
         toggleYellows();
     }
     else if(buildStatus == "complete")
     {
+        digitalWrite(7, LOW);
         blinkGreens();
+        msSinceComplete = millis();
     }
     
     
