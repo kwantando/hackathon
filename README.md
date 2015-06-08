@@ -3,5 +3,5 @@ Team: shafeen m / tyler p / michael s
 
 
 Files that matter:
-* arduino/readFromSerial/
+* arduino/readFromSerial/readFromSerial.ino
 * serverside/* 
