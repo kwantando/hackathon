@@ -1,10 +1,13 @@
-void setup() {
-  pinMode(13, OUTPUT);
-  pinMode(12, OUTPUT);
-  pinMode(11, OUTPUT);
-  pinMode(10, OUTPUT);
-  pinMode( 9, OUTPUT);
-  pinMode( 8, OUTPUT);
+void setup() 
+{
+    Serial.begin(9600);  
+
+    pinMode(13, OUTPUT);
+    pinMode(12, OUTPUT);
+    pinMode(11, OUTPUT);
+    pinMode(10, OUTPUT);
+    pinMode( 9, OUTPUT);
+    pinMode( 8, OUTPUT);
 }
 
 void blinkReds(int blinkNum = 5)
@@ -45,7 +48,6 @@ void toggleYellows()
 {
     int msDelay = 75;  
     
-    // put your main code here, to run repeatedly:
     digitalWrite(12, HIGH);
     delay(msDelay);
     digitalWrite(12, LOW);
@@ -84,12 +86,33 @@ void toggleYellows()
 }
 
 
-
-void loop() 
+void loop2()
 {
     blinkReds();
     toggleYellows();
-    toggleYellows();
     blinkGreens();
-  
+}
+void loop() 
+{
+    
+    while(Serial.available() == 0)
+    {}
+    String buildStatus = Serial.readString();
+    
+    if(buildStatus == "starting")
+    {
+        blinkReds();
+    }
+    else if(buildStatus == "inprocess")
+    {
+        toggleYellows();
+        toggleYellows();
+    }
+    else if(buildStatus == "complete")
+    {
+        blinkGreens();
+    }
+    
+    
+    
 }
