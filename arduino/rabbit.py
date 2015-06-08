@@ -29,14 +29,14 @@ def readFromRabbit():
 	channel.queue_declare(queue='arduino')
 
 	print ' [*] Waiting for messages. To exit press CTRL+C'
-
+	ser = serial.Serial('/dev/cu.usbserial-DA01HLII', 9600)
 	def callback(ch, method, properties, body):
 		if(body == "yellow") {
-			ser.write(0)
+			ser.write('0')
 		} else if (body == "blue") {
-			ser.write(1)
+			ser.write('1')
 		} else {
-			ser.write(2)
+			ser.write('2')
 		}
     	print " [x] Received %r" % (body,)
 

@@ -1,2 +1,2 @@
-# hackathon
-Now there's something in here
+# LAZ Hackathon - Build notifier
+Team: shafeen m / tyler p / michael s
