@@ -14,7 +14,8 @@ def getTimestamp():
 	return datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 
 def getBuildResult():
-	return 'failure'
+	buildResult = ['failure', 'success']
+	return buildResult[random.randint(0, len(buildResult)-1)]
 
 
 def publishNotification(jsonNotificationData):
