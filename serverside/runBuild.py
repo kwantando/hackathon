@@ -52,7 +52,12 @@ def run():
 	statusDict['buildresult'] = ''
 	publishNotification(json.dumps(statusDict))
 
-	time.sleep(3)
+	time.sleep(1)
+
+	statusDict['timestamp'] = getTimestamp()
+	publishNotification(json.dumps(statusDict))
+
+	time.sleep(2)
 
 	# completed build
 	statusDict['timestamp'] = getTimestamp()
