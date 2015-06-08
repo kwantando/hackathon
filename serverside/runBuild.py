@@ -4,10 +4,11 @@ import json
 import redis
 import pika
 import datetime
-
+import random
 
 def getCurrentUser():
-	return "defaultUser"
+	users = ['shafeen', 'tyler', 'michael']
+	return users[random.randint(0, len(users)-1)]
 
 def getTimestamp():
 	return datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
@@ -42,7 +43,7 @@ def run():
 	statusDict['buildresult'] = ''
 	publishNotification(json.dumps(statusDict))
 
-	time.sleep(1)
+	time.sleep(2)
 
 	# started build
 	statusDict['timestamp'] = getTimestamp()
@@ -50,19 +51,20 @@ def run():
 	statusDict['buildresult'] = ''
 	publishNotification(json.dumps(statusDict))
 
-	time.sleep(1)
+	time.sleep(3)
 
 	# completed build
 	statusDict['timestamp'] = getTimestamp()
 	statusDict['buildstatus'] = 'complete'
 	statusDict['buildresult'] = getBuildResult()
 	publishNotification(json.dumps(statusDict))
-
+	
+	time.sleep(30)
 
 
 while 1:
 	run()
-
+	
 
 
 
